@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-    <h1>Javascript Web Output 2</h1>
+    <h1>Javascript Web Output #2</h1>
     <table id="tblInput">
         <tr>
             <td width="45%">
@@ -60,41 +60,42 @@
                 <button id="btnClear">Clear</button>
             </td>
         </tr>
+        
     </table>
     <br>
-
     <fieldset>
         <legend>Records</legend>
         <p id="status" style="color:red; font-size: 12px;"></p>
         <table id="tblRecords" style="border-collapse: collapse; margin: auto;">
         </table>
     </fieldset>
+</div>
 
-    
+    <div class="controls">
 
-    <button id="btnClearItems" style="margin-top: 10px;">Clear Records</button>
+        <button id="btnClearItems" style="margin-top: 10px;">Clear Records</button>
+            
+        </button>
 
+        <label for="sortProperty">Sort by:</label>
+        
+        <select id="sortSelect" onchange="sortLetters()">
+            <option value="">Please select</option>
+            <option value="ascending">First Name</option>
+            <option value="descending">Last Name</option>
+        </select>
 
+        <select id="sortSelect" onchange="sortLetters()">
+            <option value="">Please select</option>
+            <option value="ascending">A-Z</option>
+            <option value="descending">Z-A</option>
+        </select>
+        
+        <button id="myLanguages" style="margin-top: 10px;" onclick="save()">Save to Local Storage</button>
 
-    
-    <select id="sortProperty" onchange="applySort()">
-    <option value="select">Please Select</option> 
-    <option value="fname">First Name</option>
-    <option value="lname">Last Name</option>
+        
 
-    </select>
-
-
-    
-    <select id="sortDirection" onchange="applySort()">
-    <option value="select">Please Select</option> 
-    <option value="asc">A-Z</option>
-    <option value="desc">Z-A</option>
-    </select>
-
-    <button id="myLanguages" style="margin-top: 10px;" onclick="save()">Save to Local Storage</button>
-
-
+    </div>
     <script src="main.js"></script>
 </body>
 </html>

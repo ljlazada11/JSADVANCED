@@ -102,7 +102,7 @@ btnClearItems.addEventListener("click", () => {
 
 
 function iterateRecords() {
-
+    // const tblTHs = new Array();
 
     while(tblRecords.hasChildNodes()) {
         tblRecords.removeChild(tblRecords.firstChild);
@@ -117,7 +117,7 @@ function iterateRecords() {
         tblHeaderRow.style.borderTop = "1px solid black";
         tblHeaderRow.style.borderBottom = "1px solid black";
 
-  
+        //Generate 4 Theads
         for(let i=0 ; i < 5 ; i++) {
             const tblTHs = document.createElement("th");
             tblTHs.style.padding = "5px";
@@ -133,7 +133,7 @@ function iterateRecords() {
         tblHeader.appendChild(tblHeaderRow);
         tblRecords.appendChild(tblHeader);
 
-
+        //Generate Records
         const tblBody = document.createElement("tbody");
     
         arrRecords.forEach((rec, i)=> {
@@ -230,21 +230,19 @@ function applySort() {
         let comparison = 0;
 
         if (property === "age") {
-
+ 
             comparison = a.age - b.age;
         } else {
 
             comparison = a[property].localeCompare(b[property]);
         }
 
+
         return direction === "desc" ? comparison * -1 : comparison;
     });
 
-
     iterateRecords();
 }
-
-
 
 
 function save() {
@@ -252,6 +250,7 @@ function save() {
     console.log("Data saved successfully!");
     alert("Saved Succesfully");
 }
+
 
 function loadOnPageStart() {
     const storedData = localStorage.getItem("names");
@@ -269,3 +268,4 @@ function loadOnPageStart() {
 
 
 loadOnPageStart();
+

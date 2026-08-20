@@ -96,13 +96,12 @@ btnClearItems.addEventListener("click", () => {
 
     btnInsertUpdate.innerHTML = "Insert";
     btnInsertUpdate.value = "insert";
-    localStorage.removeItem("names");
 
 });
 
 
 function iterateRecords() {
-
+    // const tblTHs = new Array();
 
     while(tblRecords.hasChildNodes()) {
         tblRecords.removeChild(tblRecords.firstChild);
@@ -117,7 +116,7 @@ function iterateRecords() {
         tblHeaderRow.style.borderTop = "1px solid black";
         tblHeaderRow.style.borderBottom = "1px solid black";
 
-  
+        //Generate 4 Theads
         for(let i=0 ; i < 5 ; i++) {
             const tblTHs = document.createElement("th");
             tblTHs.style.padding = "5px";
@@ -133,7 +132,7 @@ function iterateRecords() {
         tblHeader.appendChild(tblHeaderRow);
         tblRecords.appendChild(tblHeader);
 
-
+        //Generate Records
         const tblBody = document.createElement("tbody");
     
         arrRecords.forEach((rec, i)=> {
@@ -215,57 +214,29 @@ function updateData(i) {
     btnInsertUpdate.innerHTML = "Update";
     btnInsertUpdate.value = `${i}`;
 }
+function sortSelect() {
+
+    const sortSelect = document.getElementById("sortLetters").value;
+
+    if (sortSelect === "First Name") {
+
+        sortSelect.sort();
+        document.getElementById("sortSelect").innerHTML = sortLetters();
 
 
-function applySort() {
+    } else if (sortSelect === "Last Name") {
 
-    if (arrRecords.length === 0) return;
-
-
-    const property = document.getElementById("sortProperty").value;
-    const direction = document.getElementById("sortDirection").value;
-
-
-    arrRecords.sort((a, b) => {
-        let comparison = 0;
-
-        if (property === "age") {
-
-            comparison = a.age - b.age;
-        } else {
-
-            comparison = a[property].localeCompare(b[property]);
-        }
-
-        return direction === "desc" ? comparison * -1 : comparison;
-    });
-
-
-    iterateRecords();
-}
-
-
-
-
-function save() {
-    localStorage.setItem("names", JSON.stringify(arrRecords));
-    console.log("Data saved successfully!");
-    alert("Saved Succesfully");
-}
-
-function loadOnPageStart() {
-    const storedData = localStorage.getItem("names");
-    
-
-    if (storedData) {
-        arrRecords = JSON.parse(storedData);
-        console.log("Restored records from storage:", arrRecords);
-    } else {
-        arrRecords = [];
+        sortSelect.reverse();
+        document.getElementById("sortSelect").innerHTML = sortLetters();
     }
 
-    iterateRecords();
+    displayNumbers();
+
+    clearResults();
 }
 
+function clearResults() {
 
-loadOnPageStart();
+    document.getElementById("results").innerHTML = "";
+}
+

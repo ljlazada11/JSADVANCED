@@ -102,7 +102,7 @@ btnClearItems.addEventListener("click", () => {
 
 
 function iterateRecords() {
-
+    // const tblTHs = new Array();
 
     while(tblRecords.hasChildNodes()) {
         tblRecords.removeChild(tblRecords.firstChild);
@@ -117,7 +117,7 @@ function iterateRecords() {
         tblHeaderRow.style.borderTop = "1px solid black";
         tblHeaderRow.style.borderBottom = "1px solid black";
 
-  
+        //Generate 4 Theads
         for(let i=0 ; i < 5 ; i++) {
             const tblTHs = document.createElement("th");
             tblTHs.style.padding = "5px";
@@ -133,7 +133,7 @@ function iterateRecords() {
         tblHeader.appendChild(tblHeaderRow);
         tblRecords.appendChild(tblHeader);
 
-
+        //Generate Records
         const tblBody = document.createElement("tbody");
     
         arrRecords.forEach((rec, i)=> {
@@ -217,55 +217,58 @@ function updateData(i) {
 }
 
 
-function applySort() {
-
+function SortLetters() {
+    // 1. Exit early if there are no items to sort
     if (arrRecords.length === 0) return;
 
+    // 2. Read the values of both dropdowns
+    const properties = document.getElementById("sortProperties").value;
+    const select = document.getElementById("sortSelect").value;
 
-    const property = document.getElementById("sortProperty").value;
-    const direction = document.getElementById("sortDirection").value;
-
-
+    // 3. Sort the master array
     arrRecords.sort((a, b) => {
         let comparison = 0;
 
-        if (property === "age") {
-
+        if (properties === "age") {
+            // Numbers sorting logic
             comparison = a.age - b.age;
         } else {
-
-            comparison = a[property].localeCompare(b[property]);
+            // Text strings sorting logic
+            comparison = a[properties].localeCompare(b[properties]);
         }
 
+        // 4. Invert the result if the user chose Descending (Z-A)
         return direction === "desc" ? comparison * -1 : comparison;
     });
 
-
+    // 5. Refresh your UI table using your existing function
     iterateRecords();
 }
 
 
 
-
+// 1. Run this function whenever you change data (Add, Edit, Delete)
 function save() {
     localStorage.setItem("names", JSON.stringify(arrRecords));
     console.log("Data saved successfully!");
     alert("Saved Succesfully");
 }
 
+// 2. Run this function ONCE right when the script loads to restore your data
 function loadOnPageStart() {
     const storedData = localStorage.getItem("names");
     
-
+    // Check if localStorage actually has data before parsing
     if (storedData) {
         arrRecords = JSON.parse(storedData);
         console.log("Restored records from storage:", arrRecords);
     } else {
-        arrRecords = [];
+        arrRecords = []; // Fallback to an empty array if storage is clean
     }
 
+    // Immediately render the loaded rows onto the screen
     iterateRecords();
 }
 
-
+// Execute the load function right away when the script executes
 loadOnPageStart();
